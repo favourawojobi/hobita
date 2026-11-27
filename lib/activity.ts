@@ -115,8 +115,9 @@ export function subscribeActivity(
   circle: string,
   onInsert: (row: ActivityRow) => void,
 ) {
-  if (!supabase) return () => {};
-  const channel = supabase
+  const client = supabase;
+  if (!client) return () => {};
+  const channel = client
     .channel(`activity:${circle}`)
     .on(
       "postgres_changes",
@@ -131,6 +132,6 @@ export function subscribeActivity(
     .subscribe();
 
   return () => {
-    void supabase.removeChannel(channel);
+    void client.removeChannel(channel);
   };
 }

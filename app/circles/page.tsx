@@ -10,11 +10,10 @@ import {
   fetchAllCircles,
   getReadOnlyProgram,
   statusOf,
-  usd,
   type CircleAccount,
 } from "@/lib/hobita";
 import { allCircleNames } from "@/lib/metadata";
-import { shortKey } from "@/lib/format";
+import { shortKey, usd } from "@/lib/format";
 import { fetchCircleNames } from "@/lib/activity";
 
 type Loaded = { address: PublicKey; account: CircleAccount };
@@ -41,8 +40,12 @@ export default function CirclesPage() {
   const load = useCallback(async () => {
     try {
       const all = await fetchAllCircles(readProgram);
+      const loaded: Loaded[] = all.map((item) => ({
+        address: item.publicKey,
+        account: item.account,
+      }));
       setCircles(
-        (all as Loaded[]).sort((a, b) => {
+        loaded.sort((a, b) => {
           const order = { open: 0, active: 1, completed: 2, cancelled: 3 };
           const aStatus = statusOf(a.account);
           const bStatus = statusOf(b.account);

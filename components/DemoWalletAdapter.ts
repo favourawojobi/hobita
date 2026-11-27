@@ -2,10 +2,13 @@
 
 import {
   BaseWalletAdapter,
+  WalletError,
   WalletName,
   WalletReadyState,
+  type SendTransactionOptions,
 } from "@solana/wallet-adapter-base";
 import {
+  Connection,
   Keypair,
   PublicKey,
   Transaction,
@@ -85,15 +88,18 @@ export class DemoWalletAdapter extends BaseWalletAdapter {
   async connect() {
     try {
       this.pending = true;
-      this.emit("connect", "start");
       const keypair = getDemoKeypair(this.index);
       this.key = keypair.publicKey;
       this.pending = false;
       this.emit("connect", this.key);
     } catch (error) {
       this.pending = false;
-      this.emit("error", error as Error);
-      throw error;
+      const walletError = new WalletError(
+        error instanceof Error ? error.message : "Could not connect demo wallet",
+        error instanceof Error ? error : undefined,
+      );
+      this.emit("error", walletError);
+      throw walletError;
     }
   }
 
@@ -118,6 +124,21 @@ export class DemoWalletAdapter extends BaseWalletAdapter {
     transactions: T[],
   ): Promise<T[]> {
     return Promise.all(transactions.map((tx) => this.signTransaction(tx)));
+  }
+
+  async sendTransaction(
+    transaction: Transaction | VersionedTransaction,
+    connection: Connection,
+    options?: SendTransactionOptions,
+  ): Promise<string> {
+    if (!this.key) throw new Error("Wallet not connected");
+    const keypair = getDemoKeypair(this.index);
+    if (transaction instanceof VersionedTransaction) {
+      transaction.sign([keypair]);
+    } else {
+      transaction.partialSign(keypair);
+    }
+    return connection.sendRawTransaction(transaction.serialize(), options);
   }
 }
 

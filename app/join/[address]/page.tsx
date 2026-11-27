@@ -153,7 +153,7 @@ export default function JoinPage() {
           Pot per round
         </div>
         <div className="mt-1 text-4xl font-bold tracking-tight">
-          {usd(circle.contribution.mul(circle.maxMembers))}
+          {usd(circle.contribution.muln(circle.maxMembers))}
         </div>
         <div className="mt-4 grid grid-cols-3 gap-3 border-t border-cream/10 pt-4">
           <div>
