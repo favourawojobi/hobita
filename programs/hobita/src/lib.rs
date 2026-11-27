@@ -92,7 +92,7 @@ pub mod hobita {
             to: ctx.accounts.vault.to_account_info(),
             authority: ctx.accounts.member.to_account_info(),
         };
-        let cpi_ctx = CpiContext::new(ctx.accounts.token_program.to_account_info(), cpi_accounts);
+        let cpi_ctx = CpiContext::new(ctx.accounts.token_program.key(), cpi_accounts);
         token::transfer_checked(cpi_ctx, collateral, ctx.accounts.token_mint.decimals)?;
 
         let circle_key = circle.key();
@@ -175,7 +175,7 @@ pub mod hobita {
             to: ctx.accounts.vault.to_account_info(),
             authority: ctx.accounts.member.to_account_info(),
         };
-        let cpi_ctx = CpiContext::new(ctx.accounts.token_program.to_account_info(), cpi_accounts);
+        let cpi_ctx = CpiContext::new(ctx.accounts.token_program.key(), cpi_accounts);
         token::transfer_checked(
             cpi_ctx,
             circle.contribution,
@@ -328,7 +328,7 @@ pub mod hobita {
             authority: circle.to_account_info(),
         };
         let cpi_ctx = CpiContext::new_with_signer(
-            ctx.accounts.token_program.to_account_info(),
+            ctx.accounts.token_program.key(),
             cpi_accounts,
             signer_seeds,
         );
@@ -342,7 +342,7 @@ pub mod hobita {
                 authority: circle.to_account_info(),
             };
             let fee_ctx = CpiContext::new_with_signer(
-                ctx.accounts.token_program.to_account_info(),
+                ctx.accounts.token_program.key(),
                 fee_accounts,
                 signer_seeds,
             );
@@ -400,7 +400,7 @@ pub mod hobita {
             authority: circle.to_account_info(),
         };
         let cpi_ctx = CpiContext::new_with_signer(
-            ctx.accounts.token_program.to_account_info(),
+            ctx.accounts.token_program.key(),
             cpi_accounts,
             signer_seeds,
         );

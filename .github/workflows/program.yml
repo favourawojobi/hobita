@@ -56,6 +56,11 @@ jobs:
       - name: Install JS dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Sync program keypair
+        run: |
+          mkdir -p target/deploy
+          cp keys/hobita-devnet.json target/deploy/hobita-keypair.json
+
       - name: Build program
         run: anchor build
 

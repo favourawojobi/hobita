@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { AnchorProvider } from "@anchor-lang/core";
-import { Connection, Keypair } from "@solana/web3.js";
+import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import {
   getDemoKeypairs,
