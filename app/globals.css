@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-ink antialiased;
+  background-image:
+    radial-gradient(circle at 12% 0%, rgba(224, 168, 76, 0.16), transparent 32rem),
+    radial-gradient(circle at 88% 12%, rgba(46, 107, 82, 0.12), transparent 28rem);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(224, 168, 76, 0.35);
+}
+
+@layer components {
+  .card {
+    @apply rounded-3xl border border-forest/10 bg-white/80 p-5 shadow-soft backdrop-blur;
+  }
+
+  .card-flat {
+    @apply rounded-2xl border border-forest/10 bg-white/70 p-4;
+  }
+
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-forest text-cream hover:bg-moss;
+  }
+
+  .btn-gold {
+    @apply btn bg-gold text-forest hover:brightness-105;
+  }
+
+  .btn-ghost {
+    @apply btn border border-forest/15 bg-white/60 text-forest hover:bg-white;
+  }
+
+  .input {
+    @apply w-full rounded-2xl border border-forest/15 bg-white px-4 py-3 text-base text-ink outline-none transition placeholder:text-ink/35 focus:border-moss focus:ring-2 focus:ring-moss/15;
+  }
+
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-[0.14em] text-ink/55;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+}
+
+.wallet-adapter-button {
+  height: 44px !important;
+  padding: 0 18px !important;
+  border-radius: 9999px !important;
+  background: #123c2e !important;
+  color: #f7f1e7 !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+  background: #2e6b52 !important;
+}
+
+.wallet-adapter-button-trigger {
+  background: #123c2e !important;
+}
+
+.wallet-adapter-modal-wrapper {
+  background: #f7f1e7 !important;
+  color: #132a22 !important;
+}
+
+.wallet-adapter-modal-title {
+  color: #132a22 !important;
+}
+
+.wallet-adapter-modal-button-close {
+  background: #123c2e !important;
+}
